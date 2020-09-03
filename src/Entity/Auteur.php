@@ -22,20 +22,20 @@ class Auteur
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"listeGenreFull"})
+     * @Groups({"groupe"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"listeGenreFull"})
+     * @Groups({"groupe"})
      */
     private $prenom;
 
     /**
      * @ORM\ManyToOne(targetEntity=Nationalite::class, inversedBy="auteurs")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"listeGenreFull"})
+     * @Groups({"groupe"})
      */
     private $nationalite;
 

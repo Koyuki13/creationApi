@@ -20,19 +20,19 @@ class Livre
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"listeGenreFull"})
+     * @Groups({"groupe"})
      */
     private $isbn;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"listeGenreFull"})
+     * @Groups({"groupe"})
      */
     private $titre;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"listeGenreFull"})
+     * @Groups({"groupe"})
      */
     private $prix;
 
@@ -45,26 +45,26 @@ class Livre
     /**
      * @ORM\ManyToOne(targetEntity=Editeur::class, inversedBy="livres")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"listeGenreFull"})
+     * @Groups({"groupe"})
      */
     private $editeur;
 
     /**
      * @ORM\ManyToOne(targetEntity=Auteur::class, inversedBy="livres")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"listeGenreFull"})
+     * @Groups({"groupe"})
      */
     private $auteur;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"listeGenreFull"})
+     * @Groups({"groupe"})
      */
     private $annee;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"listeGenreFull"})
+     * @Groups({"groupe"})
      */
     private $langue;
 
