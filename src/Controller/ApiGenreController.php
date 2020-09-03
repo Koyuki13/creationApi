@@ -77,6 +77,21 @@ class ApiGenreController extends AbstractController
     }
 
     /**
+     * @Route("/api/genre/{id}", name="api_genre_delete", methods={"DELETE"})
+     * @param Genre $genre
+     * @param SerializerInterface $serializer
+     * @return JsonResponse
+     */
+    public function delete(Genre $genre)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($genre);
+        $entityManager->flush();
+
+        return new JsonResponse("Le genre a bien été supprimé", 200, []);
+    }
+
+    /**
      * @Route("/api/genre/{id}", name="api_genre_edit", methods={"PUT"})
      * @param Genre $genre
      * @param SerializerInterface $serializer
