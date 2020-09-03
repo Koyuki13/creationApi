@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Genre;
 use App\Repository\GenreRepository;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class ApiGenreController extends AbstractController
@@ -49,5 +51,27 @@ class ApiGenreController extends AbstractController
         );
 
         return new JsonResponse($resultat, 200, [], true);
+    }
+
+    /**
+     * @Route("/api/genre", name="api_genre_create", methods={"POST"})
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @param ObjectManager $manager
+     * @return JsonResponse
+     */
+    public function create(Request $request, SerializerInterface $serializer)
+    {
+        $data = $request->getContent();
+        $genre = $serializer->deserialize($data, Genre::class, 'json');
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($genre);
+        $entityManager->flush();
+
+        return new JsonResponse(
+            "Le nouveau genre a bien été créé",
+            Response::HTTP_CREATED,
+            ["location" => "/api/genre/".$genre->getId()],
+            true);
     }
 }
