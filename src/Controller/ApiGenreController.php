@@ -64,6 +64,7 @@ class ApiGenreController extends AbstractController
     {
         $data = $request->getContent();
         $genre = $serializer->deserialize($data, Genre::class, 'json');
+
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($genre);
         $entityManager->flush();
@@ -74,4 +75,23 @@ class ApiGenreController extends AbstractController
             ["location" => "/api/genre/".$genre->getId()],
             true);
     }
+
+    /**
+     * @Route("/api/genre/{id}", name="api_genre_edit", methods={"PUT"})
+     * @param Genre $genre
+     * @param SerializerInterface $serializer
+     * @return JsonResponse
+     */
+    public function edit(Genre $genre, SerializerInterface $serializer, Request $request)
+    {
+        $data = $request->getContent();
+        $serializer->deserialize($data, Genre::class, 'json', ['object_to_populate' => $genre]);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($genre);
+        $entityManager->flush();
+
+        return new JsonResponse("Le genre a bien été modifié", 200, [], true);
+    }
+
 }
