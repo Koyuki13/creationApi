@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Auteur;
 use App\Repository\AuteurRepository;
+use App\Repository\NationaliteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,10 +61,14 @@ class ApiAuteurController extends AbstractController
      * @param ValidatorInterface $validator
      * @return JsonResponse
      */
-    public function create(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
+    public function create(Request $request, SerializerInterface $serializer, ValidatorInterface $validator, NationaliteRepository $nationaliteRepo)
     {
         $data = $request->getContent();
-        $auteur = $serializer->deserialize($data, Auteur::class, 'json');
+        $dataTab= $serializer->decode($data, 'json');
+        $auteur = new Auteur();
+        $nationalite = $nationaliteRepo->find($dataTab['nationalite']['id']);
+        $serializer->deserialize($data, Auteur::class, 'json', ['object_to_populate' => $auteur]);
+        $auteur->setNationalite($nationalite);
 
         //gestion des erreurs de validation
         $erreurs = $validator->validate($auteur);
@@ -103,12 +108,16 @@ class ApiAuteurController extends AbstractController
      * @param SerializerInterface $serializer
      * @param Request $request
      * @param ValidatorInterface $validator
+     * @param NationaliteRepository $nationaliteRepo
      * @return JsonResponse
      */
-    public function edit(Auteur $auteur, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
+    public function edit(Auteur $auteur, SerializerInterface $serializer, Request $request, ValidatorInterface $validator, NationaliteRepository $nationaliteRepo)
     {
         $data = $request->getContent();
+        $dataTab = $serializer->decode($data, 'json');
+        $nationalite = $nationaliteRepo->find($dataTab['nationalite']['id']);
         $serializer->deserialize($data, Auteur::class, 'json', ['object_to_populate' => $auteur]);
+        $auteur->setNationalite($nationalite);
 
         //gestion des erreurs de validation
         $erreurs = $validator->validate($auteur);
