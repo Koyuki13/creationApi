@@ -3,8 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="395069b8-4cec-49a6-917e-cda0649dada0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/ApiGenreController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ApiGenreController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Auteur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Auteur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Editeur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Editeur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Genre.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Genre.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Livre.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Livre.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Nationalite.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Nationalite.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +140,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/bundles/EasyAdminBundle" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Controller" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -147,12 +152,13 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/Controller/Admin" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Controller" />
       <recent name="$PROJECT_DIR$/templates/bundles/EasyAdminBundle" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Controller/Admin" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -165,11 +171,19 @@
       <updated>1599035229112</updated>
       <workItem from="1599035230941" duration="11519000" />
       <workItem from="1599059275978" duration="3213000" />
-      <workItem from="1599117463149" duration="11423000" />
+      <workItem from="1599117463149" duration="18308000" />
+      <workItem from="1599156870569" duration="126000" />
+      <workItem from="1599206225743" duration="5606000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2224" y="349" key="run.anything.popup" timestamp="1599211237283">
+      <screen x="1600" y="207" width="1920" height="1080" />
+    </state>
+    <state x="2224" y="349" key="run.anything.popup/67.27.1533.873/1600.207.1920.1080@1600.207.1920.1080" timestamp="1599211237283" />
   </component>
 </project>

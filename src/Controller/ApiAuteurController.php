@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Genre;
-use App\Repository\GenreRepository;
+use App\Entity\Auteur;
+use App\Repository\AuteurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,22 +12,22 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ApiGenreController extends AbstractController
+class ApiAuteurController extends AbstractController
 {
     /**
-     * @Route("/api/genre", name="api_genre", methods={"GET"})
-     * @param GenreRepository $genreRepository
+     * @Route("/api/auteur", name="api_auteur", methods={"GET"})
+     * @param AuteurRepository $auteurRepository
      * @param SerializerInterface $serializer
      * @return JsonResponse
      */
-    public function liste(GenreRepository $genreRepository, SerializerInterface $serializer)
+    public function liste(AuteurRepository $auteurRepository, SerializerInterface $serializer)
     {
-        $genres = $genreRepository->findAll();
+        $auteurs = $auteurRepository->findAll();
         $resultat = $serializer->serialize(
-            $genres,
+            $auteurs,
             'json',
             [
-                'groups' => ['groupe']
+                'groups' => ['listeAuteurFull']
             ]
         );
 
@@ -35,18 +35,18 @@ class ApiGenreController extends AbstractController
     }
 
     /**
-     * @Route("/api/genre/{id}", name="api_genre_show", methods={"GET"})
-     * @param Genre $genre
+     * @Route("/api/auteur/{id}", name="api_auteur_show", methods={"GET"})
+     * @param Auteur $auteur
      * @param SerializerInterface $serializer
      * @return JsonResponse
      */
-    public function show(Genre $genre, SerializerInterface $serializer)
+    public function show(Auteur $auteur, SerializerInterface $serializer)
     {
         $resultat = $serializer->serialize(
-            $genre,
+            $auteur,
             'json',
             [
-                'groups' => ['listeGenreSimple']
+                'groups' => ['listeAuteurSimple']
             ]
         );
 
@@ -54,7 +54,7 @@ class ApiGenreController extends AbstractController
     }
 
     /**
-     * @Route("/api/genre", name="api_genre_create", methods={"POST"})
+     * @Route("/api/auteur", name="api_auteur_create", methods={"POST"})
      * @param Request $request
      * @param SerializerInterface $serializer
      * @param ValidatorInterface $validator
@@ -63,67 +63,65 @@ class ApiGenreController extends AbstractController
     public function create(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
         $data = $request->getContent();
-        $genre = $serializer->deserialize($data, Genre::class, 'json');
+        $auteur = $serializer->deserialize($data, Auteur::class, 'json');
 
         //gestion des erreurs de validation
-        $erreurs = $validator->validate($genre);
-        dd($erreurs);
-        if(count($erreurs) > 0) {
-            $erreurJson = $serializer->serialize($erreurs, 'json');
-            return new JsonResponse($erreurJson, Response::HTTP_BAD_REQUEST, [], true);
-        }
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($genre);
-        $entityManager->flush();
-
-        return new JsonResponse(
-            "Le nouveau genre a bien été créé",
-            Response::HTTP_CREATED,
-            ["location" => "/api/genre/".$genre->getId()],
-            true);
-    }
-
-    /**
-     * @Route("/api/genre/{id}", name="api_genre_delete", methods={"DELETE"})
-     * @param Genre $genre
-     * @param SerializerInterface $serializer
-     * @return JsonResponse
-     */
-    public function delete(Genre $genre)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($genre);
-        $entityManager->flush();
-
-        return new JsonResponse("Le genre a bien été supprimé", 200, []);
-    }
-
-    /**
-     * @Route("/api/genre/{id}", name="api_genre_edit", methods={"PUT"})
-     * @param Genre $genre
-     * @param SerializerInterface $serializer
-     * @param Request $request
-     * @param ValidatorInterface $validator
-     * @return JsonResponse
-     */
-    public function edit(Genre $genre, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
-    {
-        $data = $request->getContent();
-        $serializer->deserialize($data, Genre::class, 'json', ['object_to_populate' => $genre]);
-
-        //gestion des erreurs de validation
-        $erreurs = $validator->validate($genre);
+        $erreurs = $validator->validate($auteur);
         if(count($erreurs)) {
             $erreurJson = $serializer->serialize($erreurs, 'json');
             return new JsonResponse($erreurJson, Response::HTTP_BAD_REQUEST, [], true);
         }
 
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($genre);
+        $entityManager->persist($auteur);
         $entityManager->flush();
 
-        return new JsonResponse("Le genre a bien été modifié", 200, [], true);
+        return new JsonResponse(
+            "Le nouveau genre a bien été créé",
+            Response::HTTP_CREATED,
+            ["location" => "/api/auteur/".$auteur->getId()],
+            true);
+    }
+
+    /**
+     * @Route("/api/auteur/{id}", name="api_auteur_delete", methods={"DELETE"})
+     * @param Auteur $auteur
+     * @return JsonResponse
+     */
+    public function delete(Auteur $auteur)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($auteur);
+        $entityManager->flush();
+
+        return new JsonResponse("L auteur a bien été supprimé", 200, []);
+    }
+
+    /**
+     * @Route("/api/genre/{id}", name="api_genre_edit", methods={"PUT"})
+     * @param Auteur $auteur
+     * @param SerializerInterface $serializer
+     * @param Request $request
+     * @param ValidatorInterface $validator
+     * @return JsonResponse
+     */
+    public function edit(Auteur $auteur, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
+    {
+        $data = $request->getContent();
+        $serializer->deserialize($data, Auteur::class, 'json', ['object_to_populate' => $auteur]);
+
+        //gestion des erreurs de validation
+        $erreurs = $validator->validate($auteur);
+        if(count($erreurs)) {
+            $erreurJson = $serializer->serialize($erreurs, 'json');
+            return new JsonResponse($erreurJson, Response::HTTP_BAD_REQUEST, [], true);
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($auteur);
+        $entityManager->flush();
+
+        return new JsonResponse("L auteur a bien été modifié", 200, [], true);
     }
 
 }
